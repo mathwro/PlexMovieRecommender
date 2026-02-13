@@ -2,8 +2,7 @@ import os
 from dotenv import dotenv_values
 
 # Merge .env file with real environment variables (env vars take precedence)
-# utf-8-sig handles UTF-8 with or without BOM (avoids issues with Windows editors)
-_env: dict = {**dotenv_values(encoding="utf-8-sig"), **os.environ}
+_env: dict = {**dotenv_values(), **os.environ}
 
 
 def _get(key: str, default: str | None = None) -> str | None:
