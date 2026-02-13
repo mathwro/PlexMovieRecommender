@@ -25,23 +25,25 @@ A Discord bot that recommends movies and TV series from your Plex library based 
 
 1. Go to the [Discord Developer Portal](https://discord.com/developers/applications)
 2. Create a new application and add a bot
-3. Under **Bot**, enable **Server Members Intent**
-4. Copy the bot token
-5. Invite the bot to your server with the `applications.commands` and `bot` scopes
+3. Copy the bot token
+4. Invite the bot to your server with the `applications.commands` and `bot` scopes
+5. *(Optional)* Under **Bot → Privileged Gateway Intents**, enable **Server Members Intent** to make the bot appear in the server members list
 
 ### 2. Configure environment
 
 Copy `.env.example` to `.env` and fill in your values:
 
 ```env
+# Required
 DISCORD_TOKEN=your_discord_bot_token
-DISCORD_GUILD_ID=your_discord_server_id   # right-click server → Copy Server ID (requires Developer Mode)
-
 PLEX_URL=http://localhost:32400            # URL the bot uses to reach Plex internally
-PLEX_PUBLIC_URL=http://your-public-ip:32400  # publicly accessible URL for poster images
 
-PLEX_LIBRARY=Movies                        # name of your Plex movie library
-PLEX_SERIES_LIBRARY=TV Shows               # name of your Plex TV library
+# Optional
+DISCORD_GUILD_ID=your_discord_server_id         # enables instant slash command sync (right-click server → Copy Server ID, requires Developer Mode)
+DISCORD_MEMBERS_INTENT=true                     # show bot in members list; requires Server Members Intent enabled in the Developer Portal
+PLEX_PUBLIC_URL=http://your-public-ip:32400     # publicly accessible URL for poster images; if omitted, posters will not load
+PLEX_LIBRARY=Movies                             # name of your Plex movie library (default: Movies)
+PLEX_SERIES_LIBRARY=TV Shows                    # name of your Plex TV library (default: TV Shows)
 ```
 
 `PLEX_URL` and `PLEX_PUBLIC_URL` can be the same if the bot is not running on the Plex server itself.

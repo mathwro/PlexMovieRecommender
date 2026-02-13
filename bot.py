@@ -19,6 +19,8 @@ log = logging.getLogger(__name__)
 class PlexBot(commands.Bot):
     def __init__(self):
         intents = discord.Intents.default()
+        if config.DISCORD_MEMBERS_INTENT:
+            intents.members = True
         super().__init__(command_prefix="!", intents=intents)
 
     async def setup_hook(self) -> None:
