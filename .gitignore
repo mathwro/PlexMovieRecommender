@@ -2,5 +2,11 @@
 bot.log
 bot_error.log
 __pycache__/
+*.pyc
 .claude/
 recommender.db
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
