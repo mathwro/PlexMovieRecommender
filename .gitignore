@@ -1,0 +1,6 @@
+.env
+bot.log
+bot_error.log
+__pycache__/
+.claude/
+recommender.db
