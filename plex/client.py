@@ -66,5 +66,10 @@ async def get_server(discord_id: str, plex_token: str) -> PlexServer:
     return server
 
 
+def get_machine_id() -> str | None:
+    """Return the cached machine identifier, or None if not yet resolved."""
+    return _machine_id
+
+
 def invalidate_cache(discord_id: str) -> None:
     _server_cache.pop(discord_id, None)

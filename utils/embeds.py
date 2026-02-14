@@ -1,10 +1,21 @@
 from __future__ import annotations
 
-from typing import List
+from typing import List, Optional
+from urllib.parse import quote
 
 import discord
 
+from plex.client import get_machine_id
 from recommender.engine import Recommendation
+
+
+def _plex_url(rating_key: str) -> Optional[str]:
+    """Build an app.plex.tv deep link for the given item."""
+    mid = get_machine_id()
+    if not mid:
+        return None
+    key = quote(f"/library/metadata/{rating_key}", safe="")
+    return f"https://app.plex.tv/desktop#!/server/{mid}/details?key={key}"
 
 
 def build_series_embed(rec: Recommendation, rank: int) -> discord.Embed:
@@ -27,6 +38,7 @@ def build_series_embed(rec: Recommendation, rank: int) -> discord.Embed:
     embed = discord.Embed(
         title=title,
         description=show.summary[:300] + ("…" if len(show.summary) > 300 else ""),
+        url=_plex_url(show.rating_key),
         color=discord.Color.og_blurple(),
     )
 
@@ -66,6 +78,7 @@ def build_movie_embed(rec: Recommendation, rank: int) -> discord.Embed:
     embed = discord.Embed(
         title=title,
         description=movie.summary[:300] + ("…" if len(movie.summary) > 300 else ""),
+        url=_plex_url(movie.rating_key),
         color=discord.Color.blurple(),
     )
 
