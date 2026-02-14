@@ -7,6 +7,8 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
+from plexapi.myplex import MyPlexAccount
+
 from db.users import delete_user, get_user, save_user
 from plex.auth import poll_for_token, start_pin_login
 from plex.client import invalidate_cache
@@ -76,7 +78,6 @@ class AuthCog(commands.Cog):
             # Resolve username from the token
             loop = asyncio.get_running_loop()
             try:
-                from plexapi.myplex import MyPlexAccount
                 account = await loop.run_in_executor(
                     None, lambda: MyPlexAccount(token=token)
                 )
